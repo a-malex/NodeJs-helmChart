@@ -1,0 +1,35 @@
+replicaCount: 1
+
+nodeJsImage:
+  repository: <your-docker-repo>/sample_app
+  tag: v1
+  pullPolicy: IfNotPresent
+
+nginxImage:
+  repository: <your-docker-repo>/nginx_proxy
+  tag: v1
+  pullPolicy: IfNotPresent
+
+build:
+  contextPath: ./app
+  dockerfileName: Dockerfile
+  nginxDockerFileName: Dockerfile.nginx
+  buildArgs: {}
+  registry: <your-docker-registry>
+  username: <your-docker-username>
+  password: <your-docker-password>
+  dockerTag: '19.03.12'
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  path: "v1"
+  host: "my-nodjs-app.com"
+
+appEnv: "production"
+
+env:
+  EXAMPLE_ENV_VAR: "example-value"
