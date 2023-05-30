@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "my-nodejsApp.fullname" . }}
+  name: {{ include "my-nodejsapp.fullname" . }}
   labels:
-    app: {{ include "my-nodejsApp.name" . }}
+    app: {{ include "my-nodejsapp.name" . }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ include "my-nodejsApp.name" . }}
+      app: {{ include "my-nodejsapp.name" . }}
   template:
     metadata:
       labels:
-        app: {{ include "my-nodejsApp.name" . }}
+        app: {{ include "my-nodejsapp.name" . }}
     spec:
       containers:
         - name: {{ .Chart.Name }}

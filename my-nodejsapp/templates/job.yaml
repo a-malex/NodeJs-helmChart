@@ -1,9 +1,9 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ include "my-nodejsApp.fullname" . }}-build
+  name: {{ include "my-nodejsapp.fullname" . }}-build
   labels:
-    app: {{ include "my-nodejsApp.name" . }}
+    app: {{ include "my-nodejsapp.name" . }}
 spec:
   template:
     spec:
@@ -16,8 +16,12 @@ spec:
           command: ["sh", "-c"]
           args:
             - |
-              docker login {{ .Values.build.registry }} -u {{ .Values.build.username }} -p {{ .Values.build.password }};
               docker build --build-arg NODE_ENV={{ .Values.appEnv }} -t {{ .Values.nodeJsImage.repository }}:{{ .Values.nodeJsImage.tag }} -f {{ .Values.build.contextPath }}/{{ .Values.build.dockerfileName }} {{ .Values.build.contextPath }};
               docker build --build-arg NODE_ENV={{ .Values.appEnv }} -t {{ .Values.nginxImage.repository }}:{{ .Values.nginxImage.tag }} -f {{ .Values.build.contextPath }}/{{ .Values.build.nginxDockerFileName }} {{ .Values.build.contextPath }};
+      restartPolicy: "OnFailure"
+      volumes:
+        - name: dockersock
+          hostPath:
+            path: /var/run/docker.sock
 
 

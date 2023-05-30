@@ -1,12 +1,12 @@
 replicaCount: 1
 
 nodeJsImage:
-  repository: <your-docker-repo>/sample_app
+  repository: localhost:5000/sample_app
   tag: v1
   pullPolicy: IfNotPresent
 
 nginxImage:
-  repository: <your-docker-repo>/nginx_proxy
+  repository: localhost:5000/nginx_proxy
   tag: v1
   pullPolicy: IfNotPresent
 
@@ -15,10 +15,10 @@ build:
   dockerfileName: Dockerfile
   nginxDockerFileName: Dockerfile.nginx
   buildArgs: {}
-  registry: <your-docker-registry>
+  registry: localhost:5000
   username: <your-docker-username>
   password: <your-docker-password>
-  dockerTag: '19.03.12'
+  dockerTag: 'latest'
 
 service:
   type: ClusterIP

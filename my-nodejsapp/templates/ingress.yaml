@@ -1,9 +1,9 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "my-nodejsApp.fullname" . }}
+  name: {{ include "my-nodejsapp.fullname" . }}
   labels:
-    app: {{ include "my-nodejsApp.name" . }}
+    app: {{ include "my-nodejsapp.name" . }}
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
@@ -16,6 +16,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ include "my-nodejsApp.fullname" . }}
+                name: {{ include "my-nodejsapp.fullname" . }}
                 port:
                   name: http
